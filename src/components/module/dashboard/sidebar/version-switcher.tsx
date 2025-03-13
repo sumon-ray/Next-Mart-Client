@@ -14,6 +14,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useUser } from "@/context/UserContext"
+import Logo from "@/app/assets/svgs/Logo"
+import { Button } from "@/components/ui/button"
 
 export function VersionSwitcher({
   versions,
@@ -23,7 +26,7 @@ export function VersionSwitcher({
   defaultVersion: string
 }) {
   const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion)
-
+const {user} = useUser()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -34,11 +37,13 @@ export function VersionSwitcher({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <GalleryVerticalEnd className="size-4" />
+                {/* <GalleryVerticalEnd className="size-4" /> */}
+                <Logo />
               </div>
+
               <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-semibold">Documentation</span>
-                <span className="">v{selectedVersion}</span>
+                <span className="font-semibold">{user && (user?.name)} </span>
+                <span className="">{user && (user?.email)}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -47,7 +52,7 @@ export function VersionSwitcher({
             className="w-[--radix-dropdown-menu-trigger-width]"
             align="start"
           >
-            {versions.map((version) => (
+            {/* {versions.map((version) => (
               <DropdownMenuItem
                 key={version}
                 onSelect={() => setSelectedVersion(version)}
@@ -55,7 +60,8 @@ export function VersionSwitcher({
                 v{version}{" "}
                 {version === selectedVersion && <Check className="ml-auto" />}
               </DropdownMenuItem>
-            ))}
+            ))} */}
+<h1 className="text-right px-4">Logout</h1>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
