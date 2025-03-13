@@ -55,6 +55,8 @@ export const config = {
   ],
 };
 
+
+
 // import { NextRequest, NextResponse } from "next/server";
 // import { getCurrentUser } from "./services/AuthService";
 // type Role = keyof typeof roleBasedPrivateRoutes;

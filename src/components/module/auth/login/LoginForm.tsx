@@ -18,10 +18,12 @@ import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const redirect = searchParams.get("redirectPath")
   const form = useForm({ resolver: zodResolver(loginSchema) });
   const {
     formState: { isSubmitting },
@@ -33,7 +35,12 @@ const LoginForm = () => {
     //   console.log(res)
       if (res?.success) {
         toast.success(res?.message);
-        // router.push('/')
+        if (redirect) {
+          router.push(redirect)
+          
+        }else{
+          router.push("/profile")
+        }
       } else {
         toast.error(res?.message);
       }

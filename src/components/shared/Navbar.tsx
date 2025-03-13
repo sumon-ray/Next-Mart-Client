@@ -18,13 +18,20 @@ import {
 import { useUser } from "@/context/UserContext";
 import { logOut } from "@/services/AuthService";
 import { toast } from "sonner";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoute } from "@/constraints";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
+  const pathName = usePathname()
+  const router = useRouter()
   const handleLogOut=()=>{
     logOut()
     toast.success("Log out successfully")
     setIsLoading(true)
+    if (protectedRoute.some((route)=>pathName.match(route))) {
+        router.push('/')
+    }
   }
   return (
     <header className="border-b w-full">
