@@ -22,7 +22,6 @@ import {
 import { SearchForm } from "./search-form";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { VersionSwitcher } from "./version-switcher"
 
 // This is sample data.
 const data = {
