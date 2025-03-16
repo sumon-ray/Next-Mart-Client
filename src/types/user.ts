@@ -8,3 +8,4 @@ export interface IUser {
     iat?: number;
     exp?: number;
   }
+

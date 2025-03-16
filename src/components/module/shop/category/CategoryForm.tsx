@@ -51,9 +51,11 @@ const CategoryForm = () => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          <Button>Create Category</Button>
-        </DialogTrigger>
+      <DialogTrigger asChild>
+  <button className="btn-primary">
+    <span>Create Category</span> {/* ✅ এটা এখন বৈধ */}
+  </button>
+</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are you absolutely sure?</DialogTitle>
