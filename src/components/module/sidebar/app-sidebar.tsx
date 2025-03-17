@@ -1,121 +1,106 @@
-"use client";
-import * as React from "react";
-import { ChevronRight } from "lucide-react";
+"use client"
 
+import * as React from "react"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  GalleryVerticalEnd,
+  Map,
+  PieChart,
+  Settings2,
+  SquareTerminal,
+  SquareTerminalIcon,
+} from "lucide-react"
+
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { SearchForm } from "./search-form";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+} from "@/components/ui/sidebar"
+import { NavMain } from "./nav-main"
+import { NavUser } from "./nav-user"
 
 // This is sample data.
 const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+
   navMain: [
     {
       title: "Dashboard",
       url: "/user/dashboard",
+      icon: SquareTerminal,
+      isActive: true,
     },
-
     {
       title: "Shop",
       url: "/user/shop/all-products",
+      icon: Bot,
       items: [
         {
           title: "Manage Products",
-          url: "/user/shop",
+          url: "/user/shop/all-products",
         },
         {
           title: "Manage Categories",
           url: "/user/shop/category",
         },
         {
-          title: "Manage Brand",
+          title: "Manage Brands",
           url: "/user/shop/brand",
         },
       ],
     },
+ 
+   
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings2,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
   ],
-};
+
+}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname();
-
   return (
-    <Sidebar {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        {/* <VersionSwitcher
-        versions={data.versions}
-        defaultVersion={data.versions[0]}
-      /> */}
-        <SearchForm />
       </SidebarHeader>
-      <SidebarContent className="gap-0">
-        {/* We create a collapsible SidebarGroup for each parent. */}
-        {data.navMain.map((item) => {
-          const isActive =
-            pathname === item.url ||
-            item.items?.some((subItem) => pathname.startsWith(subItem.url));
-          return item?.items ? (
-            <Collapsible
-              key={item.title}
-              title={item.title}
-              defaultOpen
-              className="group/collapsible"
-            >
-              <SidebarGroup>
-                <SidebarGroupLabel
-                  asChild
-                  className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                >
-                  <CollapsibleTrigger>
-                    {item.title}{" "}
-                    <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                  </CollapsibleTrigger>
-                </SidebarGroupLabel>
-                <CollapsibleContent>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {item?.items?.map((subItem) => (
-                        <SidebarMenuItem key={subItem.title}>
-                          <SidebarMenuButton
-                            asChild
-                            isActive={pathname.startsWith(subItem.url)}
-                          >
-                            <Link href={subItem.url}>{subItem.title}</Link>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </CollapsibleContent>
-              </SidebarGroup>
-            </Collapsible>
-          ) : (
-            <SidebarMenuItem key={item.title} className="list-none">
-              <SidebarMenuButton asChild isActive={isActive}>
-                <Link href={item.url}>{item.title}</Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          );
-        })}
+      <SidebarContent>
+        <NavMain items={data.navMain} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }
