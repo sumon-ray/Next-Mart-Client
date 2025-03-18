@@ -6,17 +6,44 @@ import { ICategory } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { Trash } from "lucide-react";
+import { deleteCategory } from "@/services/category";
+import { useState } from "react";
+import { toast } from "sonner";
+import DeleteConfirmationModal from "@/components/ui/core/Modal/DeleteConfirmationModal";
 
 type TCategoriesProps = {
   categories: ICategory[];
 };
 
 const Category = ({ categories }: TCategoriesProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   console.log(categories);
   const handleDelete = (data: ICategory) => {
     console.log(data);
+    setSelectedId(data?._id);
+    setSelectedItem(data?.name);
+    setModalOpen(true);
   };
 
+  const handleDeleteConfirm = async () => {
+    try {
+      if (selectedId) {
+        const res = await deleteCategory(selectedId);
+        console.log(res);
+        if (res.success) {
+          toast.success(res.message);
+          setModalOpen(false);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (err: any) {
+      console.error(err?.message);
+    }
+  };
+   
   const columns: ColumnDef<ICategory>[] = [
     {
       accessorKey: "name",
@@ -73,6 +100,12 @@ const Category = ({ categories }: TCategoriesProps) => {
         <CategoryForm />
       </div>
       <DataTable data={categories} columns={columns} />
+      <DeleteConfirmationModal
+        name={selectedItem}
+        isOpen={isModalOpen}
+        onOpenChange={setModalOpen}
+        onConfirm={handleDeleteConfirm}
+      />
     </div>
   );
 };

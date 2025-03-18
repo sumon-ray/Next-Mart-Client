@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
 <Providers>
 <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.className}`}>
         <Toaster richColors position="top-center"/>
         {children}
       </body>

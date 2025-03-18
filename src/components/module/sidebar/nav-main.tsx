@@ -18,6 +18,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import Logo from "@/app/assets/svgs/Logo";
 
 export function NavMain({
   items,
@@ -35,7 +36,12 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      {/* <SidebarGroupLabel>
+        
+      </SidebarGroupLabel> */}
+      {/* <div className="flex mb-2">
+      <Logo /> <span>Next Mart</span>
+      </div> */}
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
