@@ -52,9 +52,9 @@ const CategoryForm = () => {
     <div>
       <Dialog>
       <DialogTrigger asChild>
-  <button className="btn-primary">
-    <span>Create Category</span> {/* ✅ এটা এখন বৈধ */}
-  </button>
+  <Button className=" ">
+    <h1>Create Category</h1>
+  </ Button>
 </DialogTrigger>
         <DialogContent>
           <DialogHeader>

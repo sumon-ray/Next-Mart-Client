@@ -28,9 +28,10 @@ export const getAllCategoryData = async () => {
       headers: {
         Authorization: (await cookies()).get("accessToken")!.value,
       },
-      next: {
-        tags: ["CATEGORY"],
-      },
+ 
+    next: {
+        tags: ["CATEGORY"]
+    }
     });
     if (!res.ok) {
       throw new Error(`Error fetching data`);

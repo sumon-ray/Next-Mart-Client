@@ -99,6 +99,7 @@ const Category = ({ categories }: TCategoriesProps) => {
         <h1>Category</h1>
         <CategoryForm />
       </div>
+      
       <DataTable data={categories} columns={columns} />
       <DeleteConfirmationModal
         name={selectedItem}
